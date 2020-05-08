@@ -13,7 +13,9 @@
 #pragma once
 
 #include <list>
+#include <map>
 #include <mutex>  // NOLINT
+#include <unordered_map>
 #include <vector>
 
 #include "buffer/replacer.h"
@@ -46,7 +48,13 @@ class ClockReplacer : public Replacer {
   size_t Size() override;
 
  private:
-  // TODO(student): implement me!
+  std::unordered_map<frame_id_t, bool> clock_table;
+
+  struct node {
+    frame_id_t frame_id;
+    bool reference_bit;
+  };
+  std::list<node> clock;
 };
 
 }  // namespace bustub
